@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common'
 import { UserService } from './user.service'
 import { Prisma, User as UserModel } from '@prisma/client'
 
@@ -16,5 +16,19 @@ export class UserController {
   @Get()
   async findAllUsers(): Promise<UserModel[]> {
     return await this.userService.findAll()
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body() userData: Prisma.UserUpdateInput,
+  ): Promise<UserModel> {
+    const foundUser = await this.userService.findOne(id)
+
+    if (!foundUser) {
+      throw new Error('Usuário não encontrado')
+    }
+
+    return await this.userService.updateUser(id, userData)
   }
 }

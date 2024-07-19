@@ -15,7 +15,18 @@ export class UserService {
     })
   }
 
-  async findAll() {
+  async findAll(): Promise<UserModel[]> {
     return this.prisma.user.findMany()
+  }
+
+  async findOne(id: string): Promise<UserModel> {
+    return this.prisma.user.findUnique({ where: { id } })
+  }
+
+  async updateUser(
+    id: string,
+    data: Prisma.UserUpdateInput,
+  ): Promise<UserModel> {
+    return this.prisma.user.update({ where: { id }, data })
   }
 }
