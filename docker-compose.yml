@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  backend-codigo-certo-pg:
+    image: postgresql
+    container_name: codigo-certo-pg
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=api-codigo-certo
+    ports:
+      - "5432:5432"
