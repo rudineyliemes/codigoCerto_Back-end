@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    image: postgres:14.9
+    container_name: cdct-back
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senha123
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d
