@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common'
+
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { UserService } from './user.service'
 import { Prisma, User as UserModel } from '@prisma/client'
+import { AuthGuard } from 'src/guards/auth.guard'
 
 @Controller('user')
 export class UserController {
@@ -30,5 +32,11 @@ export class UserController {
     }
 
     return await this.userService.updateUser(id, userData)
+
+  @UseGuards(AuthGuard)
+  @Get()
+  async list() {
+    return { ok: true }
+
   }
 }
