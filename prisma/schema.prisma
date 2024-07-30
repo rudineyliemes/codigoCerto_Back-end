@@ -14,16 +14,25 @@ datasource db {
 }
 
 model User {
-  id         String @id @default(uuid())
+  id         String    @id @default(uuid())
   name       String
-  email      String @unique
+  email      String    @unique
   password   String
   avatar_utl String
   stack      String
   about      String
+  projects   Project[]
 
   crearedAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+model Project {
+  project_id          Int    @id @default(autoincrement())
+  project_title       String
+  project_description String
+  user_id             Int
+  user                User   @relation(fields: [id], references: [id])
 }

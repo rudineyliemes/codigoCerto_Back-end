@@ -6,7 +6,7 @@ import { AuthGuard } from 'src/guards/auth.guard'
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
   async createUser(
@@ -33,10 +33,10 @@ export class UserController {
 
     return await this.userService.updateUser(id, userData)
 
-  @UseGuards(AuthGuard)
-  @Get()
-  async list() {
-    return { ok: true }
-
+    @UseGuards(AuthGuard)
+    @Get()
+    async list() {
+      return { ok: true }
+    }
   }
 }
